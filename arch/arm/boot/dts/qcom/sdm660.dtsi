@@ -400,7 +400,7 @@
 					dev = "/dev/block/platform/soc/c0c4000.sdhci/by-name/system";
 					type = "ext4";
 					mnt_flags = "ro,barrier=1,discard";
-					fsmgr_flags = "wait,verify";
+					fsmgr_flags = "wait";
 			/* Huaqin modify for ZQL1650-169 by lanshiming at 2018/1/18 end*/
 					status = "ok";
 				};
