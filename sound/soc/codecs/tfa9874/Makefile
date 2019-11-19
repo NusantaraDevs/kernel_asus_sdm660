@@ -48,3 +48,5 @@ clean:
 	rm -f $(snd-soc-tfa98xx-objs)
 
 endif
+
+subdir-ccflags-y := $(call cc-disable-warning, enum-conversion)
