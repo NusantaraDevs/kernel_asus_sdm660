@@ -1225,10 +1225,8 @@ static long do_fb_ioctl(struct fb_info *info, unsigned int cmd,
 		}
 		info->flags |= FBINFO_MISC_USEREVENT;
 /* Huaqin modify for No repetition lcd suspend by qimaokang at 2018/12/07 start*/
-		if (arg == FB_BLANK_POWERDOWN) {
+		if (arg == FB_BLANK_POWERDOWN)
 			lcd_suspend_flag = true;
-			printk("[Display] FB_BLANK_POWERDOWN\n");
-		}
 /* Huaqin modify for No repetition lcd suspend by qimaokang at 2018/12/07 end*/
 		ret = fb_blank(info, arg);
 		info->flags &= ~FBINFO_MISC_USEREVENT;

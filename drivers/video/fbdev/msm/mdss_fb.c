@@ -1636,9 +1636,7 @@ static void asus_lcd_early_unblank_func(struct work_struct *work)
 /* Huaqin modify for No repetition lcd suspend by qimaokang at 2018/12/07 start*/
 	wake_lock_timeout(&early_unblank_wakelock,msecs_to_jiffies(300));
 /* Huaqin modify for No repetition lcd suspend by qimaokang at 2018/12/07 end*/
-	printk("[Display] Early unblank func +++ \n");
 	fb_blank(fbi, FB_BLANK_UNBLANK);
-	printk("[Display] Early unblank func --- \n");
 /* Huaqin modify for No repetition lcd suspend by qimaokang at 2018/12/07 start*/
 	lcd_suspend_flag = false;
 /* Huaqin modify for No repetition lcd suspend by qimaokang at 2018/12/07 end*/
@@ -1661,7 +1659,6 @@ static int mdss_fb_pm_suspend(struct device *dev)
 /* Huaqin modify for No repetition lcd suspend by qimaokang at 2018/12/07 start*/
 	if (mfd->index == 0) {
 		if(lcd_suspend_flag == false) {
-			printk("[Display] display suspend, blank display.\n");
 			fb_blank(fbi, FB_BLANK_POWERDOWN);
 			lcd_suspend_flag = true;
 		}
@@ -1713,7 +1710,7 @@ static int mdss_fb_pm_resume(struct device *dev)
 
 	if (g_resume_from_fp && mfd->index == 0) {
 		if (!mfd->early_unblank_work_queued) {
-			printk("[Display] doing unblank from resume, due to fp.\n");
+			pr_debug("[Display] doing unblank from resume, due to fp.\n");
 			mfd->early_unblank_work_queued = true;
 			queue_delayed_work(asus_lcd_early_unblank_wq, &mfd->early_unblank_work, 0);
 		} else {
@@ -1932,9 +1929,6 @@ static int mdss_fb_blank_blank(struct msm_fb_data_type *mfd,
 
 	cur_power_state = mfd->panel_power_state;
 
-	printk("[Display] Transitioning from %d --> %d\n", cur_power_state,
-		req_power_state);
-
 	if (cur_power_state == req_power_state) {
 		printk("[Display] No change in power state, return 0\n");
 		return 0;
@@ -2109,7 +2103,7 @@ static int mdss_fb_blank_sub(int blank_mode, struct fb_info *info,
 
 	switch (blank_mode) {
 	case FB_BLANK_UNBLANK:
-		printk("[Display] unblank called. cur pwr state=%d\n", cur_power_state);
+		pr_debug("[Display] unblank called. cur pwr state=%d\n", cur_power_state);
 		ret = mdss_fb_blank_unblank(mfd);
 		break;
 	case BLANK_FLAG_ULP:
@@ -2124,7 +2118,7 @@ static int mdss_fb_blank_sub(int blank_mode, struct fb_info *info,
 		break;
 	case BLANK_FLAG_LP:
 		req_power_state = MDSS_PANEL_POWER_LP1;
-		printk("[Display] low power mode requested\n");
+		pr_debug("[Display] low power mode requested\n");
 
 		/*
 		 * If low power mode is requested when panel is already off,
@@ -2143,7 +2137,7 @@ static int mdss_fb_blank_sub(int blank_mode, struct fb_info *info,
 	case FB_BLANK_POWERDOWN:
 	default:
 		req_power_state = MDSS_PANEL_POWER_OFF;
-		printk("[Display] blank powerdown called\n");
+		pr_debug("[Display] blank powerdown called\n");
 		ret = mdss_fb_blank_blank(mfd, req_power_state);
 		break;
 	}
