@@ -650,6 +650,9 @@ ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
 KBUILD_CFLAGS	+= -Os
 else
 KBUILD_CFLAGS   += -O3
+ifeq ($(cc-name),clang)
+KBUILD_CFLAGS	+= -mcpu=kryo -mtune=kryo
+endif
 endif
 
 ifdef CONFIG_CC_WERROR
