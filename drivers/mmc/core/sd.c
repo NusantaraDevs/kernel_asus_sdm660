@@ -1301,7 +1301,6 @@ static int mmc_sd_suspend(struct mmc_host *host)
 {
 	int err;
 
-	MMC_TRACE(host, "%s: Enter\n", __func__);
 	err = _mmc_sd_suspend(host);
 	if (!err) {
 		pm_runtime_disable(&host->card->dev);
@@ -1309,8 +1308,6 @@ static int mmc_sd_suspend(struct mmc_host *host)
 	/* if suspend fails, force mmc_detect_change during resume */
 	} else if (mmc_bus_manual_resume(host))
 		host->ignore_bus_resume_flags = true;
-
-	MMC_TRACE(host, "%s: Exit err: %d\n", __func__, err);
 
 	return err;
 }
@@ -1389,14 +1386,12 @@ static int mmc_sd_resume(struct mmc_host *host)
 {
 	int err = 0;
 
-	MMC_TRACE(host, "%s: Enter\n", __func__);
 	if (!(host->caps & MMC_CAP_RUNTIME_RESUME)) {
 		err = _mmc_sd_resume(host);
 		pm_runtime_set_active(&host->card->dev);
 		pm_runtime_mark_last_busy(&host->card->dev);
 	}
 	pm_runtime_enable(&host->card->dev);
-	MMC_TRACE(host, "%s: Exit err: %d\n", __func__, err);
 
 	return err;
 }
