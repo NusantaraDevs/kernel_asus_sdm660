@@ -1724,18 +1724,18 @@ static void proc_get_req(tpAniSirGlobal pMac, uint16_t length, uint32_t *pParam)
 
 	pe_debug("Rcvd cfg get request %d bytes", length);
 	for (i = 0; i < length / 4; i++)
-		pe_debug("[%2d] 0x%08x", i, pParam[i]);
+	pe_debug("[%2d] 0x%08x", i, pParam[i]);
 
-		if (!pMac->cfg.gCfgStatus) {
-			cfgId = (uint16_t) sir_read_u32_n((uint8_t *) pParam);
-			pe_debug("CFG not ready, param %d", cfgId);
-			pMac->cfg.gParamList[WNI_CFG_GET_RSP_RES] =
-				WNI_CFG_NOT_READY;
-			pMac->cfg.gParamList[WNI_CFG_GET_RSP_PID] = cfgId;
-			pMac->cfg.gParamList[WNI_CFG_GET_RSP_PLEN] = 0;
-			cfg_send_host_msg(pMac, WNI_CFG_GET_RSP,
-					  WNI_CFG_GET_RSP_PARTIAL_LEN, WNI_CFG_GET_RSP_NUM,
-					  pMac->cfg.gParamList, 0, 0);
+	if (!pMac->cfg.gCfgStatus) {
+		cfgId = (uint16_t) sir_read_u32_n((uint8_t *) pParam);
+		pe_debug("CFG not ready, param %d", cfgId);
+		pMac->cfg.gParamList[WNI_CFG_GET_RSP_RES] =
+			WNI_CFG_NOT_READY;
+		pMac->cfg.gParamList[WNI_CFG_GET_RSP_PID] = cfgId;
+		pMac->cfg.gParamList[WNI_CFG_GET_RSP_PLEN] = 0;
+		cfg_send_host_msg(pMac, WNI_CFG_GET_RSP,
+				  WNI_CFG_GET_RSP_PARTIAL_LEN, WNI_CFG_GET_RSP_NUM,
+				  pMac->cfg.gParamList, 0, 0);
 		} else {
 			/* Process all parameter ID's on the list */
 			while (length >= sizeof(uint32_t)) {
