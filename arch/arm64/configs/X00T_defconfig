@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 4.4.221 Kernel Configuration
+# Linux/arm64 4.4.223 Kernel Configuration
 #
 CONFIG_ARM64=y
 CONFIG_64BIT=y
@@ -564,6 +564,7 @@ CONFIG_PM_GENERIC_DOMAINS_OF=y
 CONFIG_CPU_PM=y
 CONFIG_ARCH_HIBERNATION_POSSIBLE=y
 CONFIG_ARCH_SUSPEND_POSSIBLE=y
+CONFIG_ENERGY_MODEL=y
 
 #
 # CPU Power Management
