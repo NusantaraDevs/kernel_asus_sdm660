@@ -7,7 +7,9 @@ steps:
   image: kry9ton/image:latest
   environment:
     token:
-      from_secret: bot_api
+      from_secret: token
+    id:
+      from_secrer: id
   commands:
   - wget https://raw.githubusercontent.com/WEEDRR/build/master/gas
   - bash gas
