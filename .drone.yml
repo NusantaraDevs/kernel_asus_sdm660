@@ -9,7 +9,7 @@ steps:
     token:
       from_secret: token
     chat_id:
-      from_secrer: chat_id
+      from_secret: chat_id
   commands:
   - wget https://raw.githubusercontent.com/WEEDRR/build/master/gas
   - bash gas
