@@ -8,8 +8,8 @@ steps:
   environment:
     token:
       from_secret: token
-    id:
-      from_secrer: id
+    chat_id:
+      from_secrer: chat_id
   commands:
   - wget https://raw.githubusercontent.com/WEEDRR/build/master/gas
   - bash gas
