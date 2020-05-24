@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 4.4.223 Kernel Configuration
+# Linux/arm64 4.4.224 Kernel Configuration
 #
 CONFIG_ARM64=y
 CONFIG_64BIT=y
@@ -223,7 +223,6 @@ CONFIG_SLUB=y
 # CONFIG_SLOB is not set
 CONFIG_SLUB_CPU_PARTIAL=y
 # CONFIG_SYSTEM_DATA_VERIFICATION is not set
-CONFIG_PROFILING=y
 CONFIG_JUMP_LABEL=y
 # CONFIG_STATIC_KEYS_SELFTEST is not set
 # CONFIG_UPROBES is not set
@@ -4765,7 +4764,6 @@ CONFIG_NLS_UTF8=y
 # printk and dmesg options
 #
 CONFIG_PRINTK_TIME=y
-CONFIG_DEBUG_FS=y
 CONFIG_MESSAGE_LOGLEVEL_DEFAULT=4
 # CONFIG_BOOT_PRINTK_DELAY is not set
 # CONFIG_DYNAMIC_DEBUG is not set
