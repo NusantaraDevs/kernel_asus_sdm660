@@ -2595,7 +2595,7 @@ int msm_mi2s_snd_startup(struct snd_pcm_substream *substream)
 			sar_switch(0);
 			#endif
 		    msm_cdc_pinctrl_select_active_state(pdata->tert_mi2s_gpio_p);
-			printk("daixianze %s tert_mi2s_gpio_p\n", __func__);
+			pr_debug("daixianze %s tert_mi2s_gpio_p\n", __func__);
 		}
 		/* Huaqin add for config i2s tert dai for nxp pa by xudayi at 2018/03/03 end */
 
@@ -2644,7 +2644,7 @@ void msm_mi2s_snd_shutdown(struct snd_pcm_substream *substream)
         if (index == TERT_MI2S)
 		{
 		    msm_cdc_pinctrl_select_sleep_state(pdata->tert_mi2s_gpio_p);
-			pr_err("daixianze %s tert_mi2s_gpio_p \n", __func__);
+			pr_debug("daixianze %s tert_mi2s_gpio_p \n", __func__);
 			#ifdef CONFIG_INPUT_SX9310
 			pr_debug("%s after close PA, open SAR!\n", __func__);
 			sar_switch(1);
