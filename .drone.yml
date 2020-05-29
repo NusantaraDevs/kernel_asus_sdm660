@@ -11,5 +11,5 @@ steps:
     chat_id:
       from_secret: chat_id
   commands:
-  - wget https://raw.githubusercontent.com/WEEDRR/build/master/gas
-  - bash gas
+  - wget https://raw.githubusercontent.com/WEEDRR/build/master/make.sh
+  - bash make.sh
