@@ -34,9 +34,6 @@
 
 	chosen {
 		stdout-path = "serial0";
-		/* Huaqin modify for ZQL1650-358 by liunianliang at 2018/02/08 start */
-		bootargs = "rcupdate.rcu_expedited=1";
-		/* Huaqin modify for ZQL1650-358 by liunianliang at 2018/02/08 end */
 	};
 
 	psci {
