@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 4.4.227 Kernel Configuration
+# Linux/arm64 4.4.230 Kernel Configuration
 #
 CONFIG_ARM64=y
 CONFIG_64BIT=y
@@ -4745,6 +4745,7 @@ CONFIG_NLS_UTF8=y
 # CONFIG_DLM is not set
 # CONFIG_FILE_TABLE_DEBUG is not set
 # CONFIG_VIRTUALIZATION is not set
+CONFIG_BLOCK_UNWANTED_FILES=y
 
 #
 # Kernel hacking
