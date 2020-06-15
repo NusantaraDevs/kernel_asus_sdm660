@@ -1,0 +1,17 @@
+kind: pipeline
+type: docker
+name: build
+
+steps:
+- name: cooked
+  image: kry9ton/image:latest
+  environment:
+    token:
+      from_secret: token
+    chat_id:
+      from_secret: chat_id
+    branch:
+      from_secret: Branch
+  commands:
+  - wget https://raw.githubusercontent.com/WEEDRR/build/master/make.sh
+  - bash make.sh
