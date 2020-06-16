@@ -442,12 +442,6 @@ synaptics_dsx@70 {
 /* Huaqin add for newboard audio bring up by xudayi at 2018/03/03 start */
 &i2c_6 {
 	status = "okay";
-	aw87339@58 {
-		status = "disabled";
-		compatible = "awinic,aw87339_pa_spk";
-		reg = <0x58>;
-		reset-gpio = <&tlmm 24 0x01>;
-	};
 
 	tfa98xx@34 {
 		compatible = "nxp,tfa98xx";

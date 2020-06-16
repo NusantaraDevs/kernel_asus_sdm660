@@ -385,7 +385,7 @@
 	};*/
 /* Huaqin modify for ZQL1650-164 by zhengwu.lu at 2018/01/24 end */
 
-	hbtp {
+/*	hbtp {
 		compatible = "qcom,hbtp-input";
 		pinctrl-names = "pmx_ts_active", "pmx_ts_suspend";
 		pinctrl-0 = <&ts_rst_active>;
@@ -402,6 +402,7 @@
 		qcom,afe-power-on-delay-us = <1000>;
 		qcom,afe-power-off-delay-us = <6>;
 	};
+*/
 };
 
 /* Huaqin modify for ZQL1650-486 by liunianliang at 2018/03/19 start */
