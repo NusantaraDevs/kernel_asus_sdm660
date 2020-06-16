@@ -836,8 +836,6 @@
 		qcom,msm-micbias1-ext-cap;
 		qcom,msm-hs-micbias-type = "internal";
 		qcom,wsa-disable;
-		qcom,msm-spk-ext-pa = <&tlmm 24 0>;
-		qcom,msm-hph-ext-sw = <&tlmm 66 0>, <&tlmm 94 0>;
 		/* Huaqin add for change hp micbias to int by xudayi at 2018/03/05 end */
 		qcom,us-euro-gpios = <&us_euro_gpio>;
 		qcom,cdc-pdm-gpios = <&cdc_pdm_gpios>;

@@ -391,8 +391,7 @@
 					dev = "/dev/block/platform/soc/c0c4000.sdhci/by-name/vendor";
 					type = "ext4";
 					mnt_flags = "ro,barrier=1,discard";
-			/* Huaqin modify for ZQL1650-169 by lanshiming at 2018/1/18 start*/
-					fsmgr_flags = "wait,verify";
+					fsmgr_flags = "wait";
 					status = "ok";
 				};
 				system {
@@ -401,7 +400,6 @@
 					type = "ext4";
 					mnt_flags = "ro,barrier=1,discard";
 					fsmgr_flags = "wait";
-			/* Huaqin modify for ZQL1650-169 by lanshiming at 2018/1/18 end*/
 					status = "ok";
 				};
 			};
@@ -501,16 +499,6 @@
 			reg = <0x0 0x9d400000 0x0 0x23ff000>;
 			label = "cont_splash_mem";
 		};
-
-		/* Huaqin add for ZQL1650-358 by liunianliang at 2018/02/08 start */
-		pstore_reserve_mem: pstore_reserve_mem_region@0 {
-			linux,reserve-contiguous-region;
-			linux,reserve-region;
-			linux,remove-completely;
-			reg = <0x0 0x9ff00000 0x0 0x00100000>;
-			label = "pstore_reserve_mem";
-		};
-		/* Huaqin add for ZQL1650-358 by liunianliang at 2018/02/08 end */
 
 		dfps_data_mem: dfps_data_mem@0x9f7ff000 {
 		       reg = <0 0x9f8ff000 0 0x00001000>;
@@ -755,7 +743,7 @@
 			compatible = "qcom,memshare-peripheral";
 			qcom,peripheral-size = <0x0>;
 			qcom,client-id = <1>;
-			qcom,allocate-on-request;
+			qcom,allocate-boot-time;
 			label = "modem";
 		};
 	};
@@ -2520,10 +2508,6 @@
 		"HS_RA_G1_L1", "HS_RA_G2_L1", "HS_RA_G3_L1",
 		"HS_RB_G1_L1", "HS_RB_G2_L1", "HS_RB_G3_L1",
 		"MAX";
-
-		pinctrl-names = "dev-reset-assert", "dev-reset-deassert";
-		pinctrl-0 = <&ufs_dev_reset_assert>;
-		pinctrl-1 = <&ufs_dev_reset_deassert>;
 
 		resets = <&clock_gcc GCC_UFS_BCR>;
 		reset-names = "core_reset";

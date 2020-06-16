@@ -1828,12 +1828,9 @@ static bool mdss_dsi_cmp_panel_reg_v2(struct mdss_dsi_ctrl_pdata *ctrl)
 				(unsigned int)ctrl->status_value[group + i]);
 			MDSS_XLOG(ctrl->ndx, ctrl->return_buf[i],
 					ctrl->status_value[group + i]);
-/* Huaqin modify for ZQL1650 by xieguoqiang at 2018/02/09 start */
 			if (ctrl->return_buf[i] !=
-				ctrl->status_value[group + i]){
-/* Huaqin modify for ZQL1650 by xieguoqiang at 2018/02/09 end */
+				ctrl->status_value[group + i])
 				break;
-			}
 		}
 
 		if (i == len)
@@ -2050,14 +2047,8 @@ static void mdss_dsi_parse_esd_params(struct device_node *np,
 	pinfo->esd_check_enabled = of_property_read_bool(np,
 		"qcom,esd-check-enabled");
 
-	/* Huaqin modify to disable ESD in factory version by xieguoqiang 20170201 start */
-//#ifdef HQ_BUILD_FACTORY
-//	return;
-//#else
 	if (!pinfo->esd_check_enabled)
 		return;
-//#endif
-	/* Huaqin modify to disable ESD in factory version by xieguoqiang 20170201 end */
 
 	ctrl->status_mode = ESD_MAX;
 	rc = of_property_read_string(np,

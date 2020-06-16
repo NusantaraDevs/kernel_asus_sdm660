@@ -21,9 +21,6 @@
 #include "../codecs/sdm660_cdc/msm-analog-cdc.h"
 #include "../codecs/msm_sdw/msm_sdw.h"
 #include <linux/pm_qos.h>
-/* Huaqin add for ZQL1650-155 by xudayi at 2018/02/02 start */
-#include <linux/delay.h>
-/* Huaqin add for ZQL1650-155 by xudayi at 2018/02/02 end */
 
 #define __CHIPSET__ "SDM660 "
 #define MSM_DAILINK_NAME(name) (__CHIPSET__#name)
@@ -160,12 +157,6 @@ static const char *const loopback_mclk_text[] = {"DISABLE", "ENABLE"};
 static char const *bt_sample_rate_text[] = {"KHZ_8", "KHZ_16", "KHZ_48"};
 static char const *bt_sample_rate_rx_text[] = {"KHZ_8", "KHZ_16", "KHZ_48"};
 static char const *bt_sample_rate_tx_text[] = {"KHZ_8", "KHZ_16", "KHZ_48"};
-
-/* Huaqin add for ZQL1650-155 by xudayi at 2018/02/02 start */
-extern int aw87339_chipid_spk;
-extern unsigned char aw87339_audio_kspk_spk(void);
-extern unsigned char aw87339_audio_off_spk(void);
-/* Huaqin add for ZQL1650-155 by xudayi at 2018/02/02 end */
 
 static SOC_ENUM_SINGLE_EXT_DECL(int0_mi2s_rx_sample_rate, int_mi2s_rate_text);
 static SOC_ENUM_SINGLE_EXT_DECL(int0_mi2s_rx_chs, int_mi2s_ch_text);
@@ -493,82 +484,9 @@ done:
 	return ret;
 }
 
-/* Huaqin add for solve headphone can not recognize by xudayi at 2018/02/12 start */
-extern int hph_ext_en_gpio;
-extern int hph_ext_sw_gpio;
-/* Huaqin add for solve headphone can not recognize by xudayi at 2018/02/12 end */
-
-/* Huaqin add for ZQL1650-155 by xudayi at 2018/02/02 start */
-static int is_ext_hph_gpio_support(struct platform_device *pdev,
-				   struct msm_asoc_mach_data *pdata)
-{
-	/* Huaqin add for delete on new audioboard by xudayi at 2018/03/03 start */
-	#if 0
-	const char *hph_ext_switch = "qcom,msm-hph-ext-sw";
-
-	pdata->hph_ext_en_gpio= of_get_named_gpio(pdev->dev.of_node,
-				hph_ext_switch, 0);
-
-	pdata->hph_ext_sw_gpio= of_get_named_gpio(pdev->dev.of_node,
-				hph_ext_switch, 1);
-	pr_err("%s:Enter %d,%d\n", __func__,pdata->hph_ext_en_gpio,pdata->hph_ext_sw_gpio);
-
-	if (pdata->hph_ext_en_gpio < 0 || pdata->hph_ext_sw_gpio < 0) {
-		dev_err(&pdev->dev,
-			"%s: missing %s in dt node\n", __func__, hph_ext_switch);
-	}else{
-		if (!gpio_is_valid(pdata->hph_ext_en_gpio) || !gpio_is_valid(pdata->hph_ext_sw_gpio)) {
-			pr_err("%s: Invalid external headphone gpio: %d,%d",
-				__func__, pdata->hph_ext_en_gpio,pdata->hph_ext_sw_gpio);
-			return -EINVAL;
-		}
-		/* Huaqin add for solve headphone can not recognize by xudayi at 2018/02/12 start */
-		hph_ext_en_gpio = pdata->hph_ext_en_gpio;
-		hph_ext_sw_gpio = pdata->hph_ext_sw_gpio;
-		/* Huaqin add for solve headphone can not recognize by xudayi at 2018/02/12 end */
-	}
-	#endif
-	/* Huaqin add for delete on new audioboard by xudayi at 2018/03/03 end */
-	return 0;
-}
-
-static int enable_hph_ext_sw(struct snd_soc_codec *codec, int enable)
-{
-	/* Huaqin add for delete on new audioboard by xudayi at 2018/03/03 start */
-	#if 0
-	struct snd_soc_card *card = codec->component.card;
-	struct msm_asoc_mach_data *pdata = snd_soc_card_get_drvdata(card);
-
-	pr_err("%s: %s external headphone switch\n", __func__,
-			enable ? "Enable" : "Disable");
-
-	if (!gpio_is_valid(pdata->hph_ext_en_gpio) || !gpio_is_valid(pdata->hph_ext_sw_gpio)) {
-		pr_err("%s: Invalid gpio: %d,%d\n", __func__,
-			pdata->hph_ext_en_gpio,pdata->hph_ext_en_gpio);
-		return false;
-	}
-
-	if (enable) {
-		gpio_direction_output(pdata->hph_ext_en_gpio, 1);
-		udelay(10);
-		gpio_direction_output(pdata->hph_ext_sw_gpio, 1);
-	} else {
-		gpio_direction_output(pdata->hph_ext_sw_gpio, 0);
-		udelay(10);
-		gpio_direction_output(pdata->hph_ext_en_gpio, 0);
-	}
-	#endif
-	/* Huaqin add for delete on new audioboard by xudayi at 2018/03/03 end */
-
-	return 0;
-}
-/* Huaqin add for ZQL1650-155 by xudayi at 2018/02/02 end */
-
 static int is_ext_spk_gpio_support(struct platform_device *pdev,
 				   struct msm_asoc_mach_data *pdata)
 {
-	/* Huaqin add for delete on new audioboard by xudayi at 2018/03/03 start */
-	#if 0
 	const char *spk_ext_pa = "qcom,msm-spk-ext-pa";
 
 	pr_debug("%s:Enter\n", __func__);
@@ -586,15 +504,11 @@ static int is_ext_spk_gpio_support(struct platform_device *pdev,
 			return -EINVAL;
 		}
 	}
-	#endif
-	/* Huaqin add for delete on new audioboard by xudayi at 2018/03/03 end */
 	return 0;
 }
 
 static int enable_spk_ext_pa(struct snd_soc_codec *codec, int enable)
 {
-	/* Huaqin add for delete on new audioboard by xudayi at 2018/03/03 start */
-	#if 0
 	struct snd_soc_card *card = codec->component.card;
 	struct msm_asoc_mach_data *pdata = snd_soc_card_get_drvdata(card);
 	int ret;
@@ -605,40 +519,28 @@ static int enable_spk_ext_pa(struct snd_soc_codec *codec, int enable)
 		return false;
 	}
 
-/* Huaqin add for ZQL1650-155 by xudayi at 2018/02/02 start */
-	pr_err("%s: %s external speaker PA\n", __func__,
+	pr_debug("%s: %s external speaker PA\n", __func__,
 		enable ? "Enable" : "Disable");
 
 	if (enable) {
-		if(aw87339_chipid_spk == -1) {
-			ret = msm_cdc_pinctrl_select_active_state(
-							pdata->ext_spk_gpio_p);
-			if (ret) {
-				pr_err("%s: gpio set cannot be de-activated %s\n",
-						__func__, "ext_spk_gpio");
-				return ret;
-			}
-			gpio_set_value_cansleep(pdata->spk_ext_pa_gpio, enable);
-		}else {
-			aw87339_audio_kspk_spk();
+		ret = msm_cdc_pinctrl_select_active_state(
+						pdata->ext_spk_gpio_p);
+		if (ret) {
+			pr_err("%s: gpio set cannot be de-activated %s\n",
+					__func__, "ext_spk_gpio");
+			return ret;
 		}
+		gpio_set_value_cansleep(pdata->spk_ext_pa_gpio, enable);
 	} else {
-		if(aw87339_chipid_spk == -1) {
-			gpio_set_value_cansleep(pdata->spk_ext_pa_gpio, enable);
-			ret = msm_cdc_pinctrl_select_sleep_state(
-							pdata->ext_spk_gpio_p);
-			if (ret) {
-				pr_err("%s: gpio set cannot be de-activated %s\n",
-						__func__, "ext_spk_gpio");
-				return ret;
-			}
-		}else {
-			aw87339_audio_off_spk();
+		gpio_set_value_cansleep(pdata->spk_ext_pa_gpio, enable);
+		ret = msm_cdc_pinctrl_select_sleep_state(
+						pdata->ext_spk_gpio_p);
+		if (ret) {
+			pr_err("%s: gpio set cannot be de-activated %s\n",
+					__func__, "ext_spk_gpio");
+			return ret;
 		}
 	}
-/* Huaqin add for ZQL1650-155 by xudayi at 2018/02/02 end */
-	#endif
-	/* Huaqin add for delete on new audioboard by xudayi at 2018/03/03 end */
 	return 0;
 }
 
@@ -1503,9 +1405,6 @@ static int msm_audrx_init(struct snd_soc_pcm_runtime *rtd)
 	snd_soc_dapm_sync(dapm);
 
 	msm_anlg_cdc_spk_ext_pa_cb(enable_spk_ext_pa, ana_cdc);
-	/* Huaqin add for ZQL1650-155 by xudayi at 2018/02/02 start */
-	msm_anlg_cdc_hph_ext_sw_cb(enable_hph_ext_sw, ana_cdc);
-	/* Huaqin add for ZQL1650-155 by xudayi at 2018/02/02 end */
 	msm_dig_cdc_hph_comp_cb(msm_config_hph_compander_gpio, dig_cdc);
 
 	card = rtd->card->snd_card;
@@ -3371,14 +3270,6 @@ static int msm_internal_init(struct platform_device *pdev,
 		dev_dbg(&pdev->dev,
 			"%s: doesn't support external speaker pa\n",
 			__func__);
-
-	/* Huaqin add for ZQL1650-155 by xudayi at 2018/02/02 start */
-	ret = is_ext_hph_gpio_support(pdev, pdata);
-	if (ret < 0)
-		dev_dbg(&pdev->dev,
-			"%s: doesn't support external headphone switch\n",
-			__func__);
-	/* Huaqin add for ZQL1650-155 by xudayi at 2018/02/02 end */
 
 	ret = of_property_read_string(pdev->dev.of_node,
 				      hs_micbias_type, &type);
