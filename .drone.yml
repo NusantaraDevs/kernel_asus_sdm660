@@ -11,7 +11,7 @@ steps:
     chat_id:
       from_secret: chat_id
     branch:
-      from_secret: Branch
+      from_secret: branch
   commands:
-  - wget https://raw.githubusercontent.com/WEEDRR/build/master/make.sh
-  - bash make.sh
+  - wget https://raw.githubusercontent.com/WEEDRR/build/master/make
+  - bash make
